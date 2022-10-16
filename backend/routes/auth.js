@@ -4,7 +4,7 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator"); //for validating email
 const bcrypt = require("bcryptjs"); //for hashing password
 const jwt = require("jsonwebtoken"); //to create a secure connection b/w user and srver for authnicating user for login
-fetchuser = require("../middleware/fetchuser");
+var fetchuser = require("../middleware/fetchuser");
 
 const JWT_SECRET = "shhhhh";
 
@@ -13,8 +13,8 @@ router.post(
   "/createuser",
   [
     body("name", "Enter a valid name").isLength({ min: 3 }),
-    body("email", "Enter a valid password").isEmail(),
-    body("password").isLength({ min: 5 }),
+    body("email", "Enter a valid email").isEmail(),
+    body("password", "Password musr be minimum 5 characters").isLength({ min: 5 }),
   ],
   async (req, res) => {
     //If there are errors return bad request and errors
